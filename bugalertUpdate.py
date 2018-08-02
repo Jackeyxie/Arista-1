@@ -65,17 +65,17 @@ stream = cStringIO.StringIO()
 string = username + ':' + password
 creds = (base64.b64encode(string.encode()))
 
+# build a web connection to the URL below
 url = 'https://www.arista.com/custom_data/bug-alert/alertBaseDownloadApi.php'
-
 warnings.filterwarnings("ignore")
-
 jsonpost = {'user_auth': creds}
-
 result = requests.post(url, data=json.dumps(jsonpost))
 
+# Extract the BugAlert Database and store it in the web_data_final variable
 web_data = json.loads(result.text)
 web_data_final = result.text
 
+# Setup 3 variables for filenames and sysdb path
 alertBaseFile = '/persist/sys/AlertBase.json'
 alertBaseFileFlash = '/mnt/flash/AlertBase.json'
 sysname = 'ar'
